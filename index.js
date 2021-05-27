@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+
 const customers = [
   { id: 1, name: 'Sampath' },
   { id: 2, name: 'Tharanga' },
@@ -30,6 +32,15 @@ app.get('/api/posts/:year/:month', (req, res) => {
 });
 */
 
+app.post('/api/customers', (req, res) => {
+  const customer = {
+    id: customer.length + 1,
+    name: req.body.name
+  };
+  customers.push(customer);
+  res.send(customer);
+});
+
 //PORT
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 3004;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
