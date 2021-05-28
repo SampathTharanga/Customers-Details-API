@@ -30,11 +30,11 @@ app.get('/api/posts/:year/:month', (req, res) => {
   //res.send(req.params);  //  /api/posts/2018/5
   res.send(req.query); //  /api/posts/2018/5?sortBy=name
 });
-*/
+*/    
 
 app.post('/api/customers', (req, res) => {
   const customer = {
-    id: customer.length + 1,
+    id: customers.length + 1,
     name: req.body.name
   };
   customers.push(customer);
@@ -42,5 +42,5 @@ app.post('/api/customers', (req, res) => {
 });
 
 //PORT
-const port = process.env.PORT || 3004;
+const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Listening on port ${port}...`));
