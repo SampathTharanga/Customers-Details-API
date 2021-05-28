@@ -1,3 +1,4 @@
+const Joi = require('joi')
 const express = require('express');
 const app = express();
 
@@ -33,6 +34,27 @@ app.get('/api/posts/:year/:month', (req, res) => {
 */    
 
 app.post('/api/customers', (req, res) => {
+  
+  const schema = Joi.object({
+    name: Joi.string().min(3).required()
+  })
+
+  const result = schema.validate(req.body)
+  console.log(result)
+
+if(result.error) {
+  //400 Bad Request
+  res.status(400).send(result.error.details[0].message)
+}
+ 
+ /*
+  if(!req.body.name || req.body.name.length < 3) {
+    //400 Bad Request
+    res.status(400).send('Name is required and should be minimum 3 characters.')
+    return
+  }
+*/
+
   const customer = {
     id: customers.length + 1,
     name: req.body.name
