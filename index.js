@@ -79,7 +79,7 @@ app.put('/api/customers/:id', (req, res) => {
   //If not existing, return 404
   var customer = customers.find(c => c.id === parseInt(req.params.id))
   if (!customer)
-    res.status(404).send('The Custoemr with the givrn ID was not found.')
+    res.status(404).send('The Customer with the given ID was not found.')
 
 
   //Validate
@@ -103,6 +103,20 @@ function  validateCustomer(customer) {
   return schema.validate(customer)
 }
 
+
+app.delete('/api/customers/:id', (req, res) => {
+  //Look up the customers
+  //Not existing, return 404
+  const customer = customers.find(c => c.id === parseInt(req.params.id))
+  if (!customer) res.status(404).send('The customer with the given ID was not found.')
+
+  //Delete
+  const index = customers.indexOf(customer)
+  customers.splice(index, 1)
+
+  //Return the same customer
+  res.send(customer)
+})
 
 //PORT
 const port = process.env.PORT || 3000
