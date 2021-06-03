@@ -22,8 +22,7 @@ app.get('/api/customers', (req, res) => {
 //  /api/customer/1
 app.get('/api/customers/:id', (req, res) => {
   var customer = customers.find(c => c.id === parseInt(req.params.id));
-  if (!customer)
-    res.status(404).send('The Customer with the given ID was not found.');
+  if (!customer) return res.status(404).send('The Customer with the given ID was not found.');
   res.send(customers);
 });
 
@@ -51,10 +50,8 @@ if(result.error) {
 }*/
  
 const {error}  = validateCustomer(req.body)// result.error
-if(error) {
-  res.status(400).send(error.details[0].message)
-  return
-}
+if(error) return res.status(400).send(error.details[0].message)
+
 
 
 
@@ -78,17 +75,14 @@ app.put('/api/customers/:id', (req, res) => {
   // Look up the customer
   //If not existing, return 404
   var customer = customers.find(c => c.id === parseInt(req.params.id))
-  if (!customer)
-    res.status(404).send('The Customer with the given ID was not found.')
+  if (!customer) return res.status(404).send('The Customer with the given ID was not found.')
 
 
   //Validate
   //If invalide, return 400 - Bad request
  const {error}  = validateCustomer(req.body)// result.error
-  if(error) {
-    res.status(400).send(error.details[0].message)
-    return
-  }
+  if(error) return res.status(400).send(error.details[0].message)
+ 
   //Update customer
   customer.name = req.body.name;
   //Return the update customer
@@ -108,7 +102,7 @@ app.delete('/api/customers/:id', (req, res) => {
   //Look up the customers
   //Not existing, return 404
   const customer = customers.find(c => c.id === parseInt(req.params.id))
-  if (!customer) res.status(404).send('The customer with the given ID was not found.')
+  if (!customer) return res.status(404).send('The customer with the given ID was not found.')
 
   //Delete
   const index = customers.indexOf(customer)
