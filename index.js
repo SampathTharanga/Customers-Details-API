@@ -15,12 +15,12 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/api/customer', (req, res) => {
+app.get('/api/customers', (req, res) => {
   res.send(customers);
 });
 
 //  /api/customer/1
-app.get('/api/customer/:id', (req, res) => {
+app.get('/api/customers/:id', (req, res) => {
   var customer = customers.find(c => c.id === parseInt(req.params.id));
   if (!customer)
     res.status(404).send('The Customer with the given ID was not found.');
